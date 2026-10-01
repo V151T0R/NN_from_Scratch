@@ -1,35 +1,41 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
-from dense import Dense
-from activations import Tanh
-from losses import mse, mse_prime
-from network import train, predict
+from Functions.Activation_Functions import Tanh
+from Functions.Loss_Functions import mse, mse_prime
+from Layer.DenseLayer import DenseLayer
+from Network.predict import predict
+from Network.train import train
 
-X = np.reshape([[0, 0], [0, 1], [1, 0], [1, 1]], (4, 2, 1))
-Y = np.reshape([[0], [1], [1], [0]], (4, 1, 1))
+
+
+x_train = np.reshape(
+    [[0, 0], [0, 1], [1, 0], [1, 1]],
+    (4, 2, 1),
+)
+y_train = np.reshape(
+    [[0], [1], [1], [0]],
+    (4, 1, 1),
+)
 
 network = [
-    Dense(2, 3),
+    DenseLayer(2, 3),
     Tanh(),
-    Dense(3, 1),
-    Tanh()
+    DenseLayer(3, 1),
+    Tanh(),
 ]
 
-# train
-train(network, mse, mse_prime, X, Y, epochs=10000, learning_rate=0.1)
+train(
+    network,
+    mse,
+    mse_prime,
+    x_train,
+    y_train,
+    epochs=10000,
+    learning_rate=0.1,
+)
 
-# decision boundary plot
-points = []
-for x in np.linspace(0, 1, 20):
-    for y in np.linspace(0, 1, 20):
-        z = predict(network, [[x], [y]])
-        points.append([x, y, z[0,0]])
+print("\nPredictions:")
+for x, y in zip(x_train, y_train):
+    output = predict(network, x)
+    print(f"input={x.ravel().astype(int)}, predicted={output.item():.4f}, target={y.item():.0f}")
 
-points = np.array(points)
-
-fig = plt.figure()
-ax = fig.add_subplot(111, projection="3d")
-ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=points[:, 2], cmap="winter")
-plt.show()
