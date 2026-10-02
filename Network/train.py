@@ -24,7 +24,7 @@ def train(network, loss, loss_prime, x_train, y_train, epochs=1000, learning_rat
             total_loss += loss(y, output)
 
             # backward
-            gradient = loss_prime(y, output)
+            gradient = loss_prime(y, output) #manullay passing the gradient to the last layer of the network
             for layer in reversed(network):
                 gradient = layer.backward(gradient, learning_rate)
 

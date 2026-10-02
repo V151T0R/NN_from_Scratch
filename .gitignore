@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
 # Virtual environments
 .venv/
 venv/
@@ -11,6 +12,9 @@ ENV/
 
 # Notebook checkpoints
 .ipynb_checkpoints/
+
+# Local lecture notes
+NN_From_Scratch_Lecture.md
 
 # Test, type-checker, and coverage caches
 .pytest_cache/
