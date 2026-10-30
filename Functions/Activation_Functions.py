@@ -3,8 +3,8 @@ from Layer.ActivationLayer import Activation
 
 class Tanh(Activation):
     def __init__(self):
-        def tanh(x):
-            return np.tanh(x)
+        def tanh(x):       #x is the input vector to the activation function 
+            return np.tanh(x) 
 
         def tanh_prime(x):
             return 1 - np.tanh(x) ** 2

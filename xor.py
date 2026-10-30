@@ -1,11 +1,10 @@
 import numpy as np
 
 from Functions.Activation_Functions import Tanh
-from Functions.Loss_Functions import mse, mse_prime
+from Functions.Loss_Functions import MSE
 from Layer.DenseLayer import DenseLayer
 from Network.predict import predict
 from Network.train import train
-
 
 
 x_train = np.reshape(
@@ -24,10 +23,12 @@ network = [
     Tanh(),
 ]
 
+loss = MSE()
+
 train(
     network,
-    mse,
-    mse_prime,
+    loss.loss,
+    loss.loss_prime,
     x_train,
     y_train,
     epochs=10000,
